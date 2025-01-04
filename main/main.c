@@ -32,8 +32,6 @@ void printBinary(unsigned char value, int length, int height) {
 }
 
 void printBinary2(unsigned char value, int length, int height) {
-    //ESP_LOGI(TAG, "\nCounter: %d Byte: %.4x\n", counterByte, value);
-    //counterByte++;
     for (int i = 7; i >= 0; i--) {
         if(counterHeight==height){
             continue;
@@ -43,7 +41,6 @@ void printBinary2(unsigned char value, int length, int height) {
         }else{
             printf("  ");
         }
-        //printf("%d", (value >> i) & 1);
         counter++;
         if(counter==length){
             printf("\n");
@@ -51,37 +48,34 @@ void printBinary2(unsigned char value, int length, int height) {
             counter = 0;
         }
     }
-    //printf("\n");
 }
 
 void app_main(void)
 {
-    //ESP_LOGI("OpenWeatherAPI", "Received data: %s", response_data);
+    int letter = 'E';
     ESP_LOGI(TAG, "FreeMono9pt7bBitmaps: %d", sizeof(FreeMono9pt7bBitmaps));
-    ESP_LOGI(TAG, "test: %d", FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].xAdvance);
+    ESP_LOGI(TAG, "test: %d", FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].xAdvance);
 
-    int widthOfLetterA = FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].width;
-    int heightOfLetterA = FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].height;
+    int widthOfLetter = FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].width;
+    int heightOfLetter = FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].height;
 
-    ESP_LOGI(TAG, "A: \nBitmapOffset: %d \nWidth: %d \nHeight: %d \nxAdvence: %d \nxOffset: %d \nyOffset: %d \nyAdvance: %d \nFirstByte: %.4x", 
-                                                                                                                        FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].bitmapOffset,
-                                                                                                                        widthOfLetterA,
-                                                                                                                        heightOfLetterA,
-                                                                                                                        FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].xAdvance,
-                                                                                                                        FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].xOffset,
-                                                                                                                        FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].yOffset,
+    ESP_LOGI(TAG, "Char %c: \nBitmapOffset: %d \nWidth: %d \nHeight: %d \nxAdvence: %d \nxOffset: %d \nyOffset: %d \nyAdvance: %d \nFirstByte: %.4x", 
+                                                                                                                        letter,
+                                                                                                                        FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].bitmapOffset,
+                                                                                                                        widthOfLetter,
+                                                                                                                        heightOfLetter,
+                                                                                                                        FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].xAdvance,
+                                                                                                                        FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].xOffset,
+                                                                                                                        FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].yOffset,
                                                                                                                         FreeMono9pt7b.yAdvance,
-                                                                                                                        FreeMono9pt7bBitmaps[FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].bitmapOffset]);
+                                                                                                                        FreeMono9pt7bBitmaps[FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].bitmapOffset]);
     
-    for(int i=0; i<(widthOfLetterA * heightOfLetterA / 8 +1);i++){
-        //ESP_LOGI(TAG, "Bitmaps %d: %.4x", i, FreeMono9pt7bBitmaps[FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].bitmapOffset + i]);
-        printBinary2(FreeMono9pt7bBitmaps[FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].bitmapOffset + i],widthOfLetterA, heightOfLetterA);
+    for(int i=0; i<(widthOfLetter * heightOfLetter / 8 +1);i++){
+        printBinary2(FreeMono9pt7bBitmaps[FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].bitmapOffset + i],widthOfLetter, heightOfLetter);
     }
 
-    for(int i=0; i<(widthOfLetterA * heightOfLetterA / 8 +1);i++){
-        ESP_LOGI(TAG, "Bitmaps %d: %.4x", i, FreeMono9pt7bBitmaps[FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].bitmapOffset + i]);
-        //printBinary(FreeMono9pt7bBitmaps[FreeMono9pt7bGlyphs['A' - FreeMono9pt7b.first].bitmapOffset + i],widthOfLetterA);
+    for(int i=0; i<(widthOfLetter * heightOfLetter / 8 +1);i++){
+        ESP_LOGI(TAG, "Bitmaps %d: %.4x", i, FreeMono9pt7bBitmaps[FreeMono9pt7bGlyphs[letter - FreeMono9pt7b.first].bitmapOffset + i]);
     }
 
-    //printBinary(0x10,4);
 }
